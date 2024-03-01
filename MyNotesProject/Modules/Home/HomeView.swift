@@ -67,7 +67,7 @@ class HomeView: UIViewController {
     
     private func setupNavigationItem() {
         navigationItem.title = "Home"
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(itemButtonTapped))
+        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(itemButtonTapped))
         navigationItem.rightBarButtonItem = rightBarButtonItem
     }
     

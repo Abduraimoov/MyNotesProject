@@ -8,13 +8,19 @@
 import UIKit
 import SnapKit
 
+protocol ThemeSwitchDelegate: AnyObject {
+    func themeSwitchDidToggle(isOn: Bool)
+}
+
 class CustomTableViewCell: UITableViewCell {
     
+    weak var delegate: ThemeSwitchDelegate?
+
     static var SetupID = "note_cell"
     
     private lazy var languageImage: UIImageView = {
         let image = UIImageView()
-        image.tintColor = .black
+        image.tintColor = .label
         return image
     }()
     
@@ -29,7 +35,7 @@ class CustomTableViewCell: UITableViewCell {
         button.setTitle("Русский", for: .normal)
         button.setTitleColor(.secondaryLabel, for: .normal)
         button.semanticContentAttribute = .forceRightToLeft
-        button.tintColor = .black
+        button.tintColor = .label
         return button
     }()
     
@@ -45,7 +51,7 @@ class CustomTableViewCell: UITableViewCell {
           configuration.imagePlacement = .leading
           configuration.imagePadding = 7
           let view = UIButton(configuration: configuration)
-          view.tintColor = .black
+          view.tintColor = .label
           view.translatesAutoresizingMaskIntoConstraints = false
           return view
       }()
@@ -53,6 +59,7 @@ class CustomTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
+        setupSwitch()
         contentView.backgroundColor = .secondarySystemBackground
     }
     
@@ -73,6 +80,24 @@ class CustomTableViewCell: UITableViewCell {
     func setup(image: UIImage) {
         languageImage.image = image
     }
+    
+    private func setupSwitch() {
+        buttonSwitch.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
+    }
+
+    @objc private func switchValueChanged(_ sender: UISwitch) {
+        delegate?.themeSwitchDidToggle(isOn: sender.isOn)
+    }
+    
+    func setup(title: String, image: UIImage, isDarkMode: Bool = false) {
+        languegeLabel.text = title
+        languageImage.image = image
+        let contentColor = isDarkMode ? UIColor.white : UIColor.black
+        languegeLabel.textColor = contentColor
+        languageButton.tintColor = contentColor
+        trashButton.tintColor = contentColor
+    }
+
     
     private func setupView() {
         contentView.addSubview(languageImage)
