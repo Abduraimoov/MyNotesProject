@@ -10,10 +10,8 @@ import SnapKit
 
 class SettingView: UIViewController {
     
-    
-      
-      private let images: [UIImage] = [UIImage(resource: .language), UIImage(systemName: "moon")!]//private let labels: [String] = ["Язык", "Темная тема", "Очистеть данные"]
-      private let labels: [String] = ["Язык", "Темная тема"]
+      private let images: [UIImage] = [UIImage(resource: .language), UIImage(systemName: "moon")!]
+      private let titles: [String] = ["Язык", "Темная тема"]
       
       
       private lazy var stackTableView: UITableView = {
@@ -64,7 +62,7 @@ class SettingView: UIViewController {
               cell.buttonSwitch.removeFromSuperview()
           }
           
-          cell.setup(title: labels[indexPath.row])
+          cell.setup(title: titles[indexPath.row])
           cell.setup(image: images[indexPath.row])
           return cell
       }

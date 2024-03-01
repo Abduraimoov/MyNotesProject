@@ -30,7 +30,6 @@ class CustomTableViewCell: UITableViewCell {
         button.setTitleColor(.secondaryLabel, for: .normal)
         button.semanticContentAttribute = .forceRightToLeft
         button.tintColor = .black
-        //button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -15)
         return button
     }()
     
@@ -105,12 +104,8 @@ class CustomTableViewCell: UITableViewCell {
         trashButton.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.bottom).offset(65)
             make.leading.equalTo(contentView).offset(5)
-        }//; trashButton.addTarget(self, action: #selector(tapped), for: .touchUpInside)
+        }
      
     }
-    
-//    @objc func tapped(_ sender: UIButton) {
-//        let vc = HomeView()
-//        present(vc, animated: true)
-//    }
+
 }
