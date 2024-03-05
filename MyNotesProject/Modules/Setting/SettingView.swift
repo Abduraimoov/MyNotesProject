@@ -9,15 +9,16 @@ import UIKit
 import SnapKit
 
 class SettingView: UIViewController {
-    
-    private let images: [UIImage] = [UIImage(systemName: "character.book.closed")!, UIImage(systemName: "moon.fill")!]
-    private let titles: [String] = ["Язык", "Темная тема"]
+   
+    private var settings: [Settings] = [Settings(titleLabel: "Язык", leftImage: "character.book.closed"),
+                                        Settings(titleLabel: "Темная тема", leftImage: "moon"),
+                                        Settings(titleLabel: "Очистить данные", leftImage: "trash"),]
     
     private lazy var stackTableView: UITableView = {
         let tableView = UITableView()
         tableView.rowHeight = 55
         tableView.layer.cornerRadius = 10
-        tableView.backgroundColor = .secondarySystemBackground
+        //tableView.backgroundColor = .secondarySystemBackground
         tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
@@ -30,6 +31,17 @@ class SettingView: UIViewController {
         view.backgroundColor = .systemBackground
         setupUIView()
         setupNavigationItem()
+       // updateInterfaceForTheme()
+        updateInterfaceForTheme()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if UserDefaults.standard.bool(forKey: "Theme") == false {
+            view.overrideUserInterfaceStyle = .light
+        } else {
+            view.overrideUserInterfaceStyle = .dark
+        }
     }
     
     private func setupNavigationItem() {
@@ -48,16 +60,20 @@ class SettingView: UIViewController {
         }
     }
     
-    func updateInterfaceForTheme(isDark: Bool) {
-        let themeColor = isDark ? UIColor.white : UIColor.black
-        let backgroundColor = isDark ? UIColor.black : UIColor.systemBackground
+    private func updateInterfaceForTheme(isDark: Bool? = nil) {
         
-        view.backgroundColor = backgroundColor
-        stackTableView.backgroundColor = .secondarySystemBackground
-        navigationController?.navigationBar.tintColor = themeColor
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: themeColor]
-        navigationItem.rightBarButtonItem?.tintColor = themeColor
-        
+        if let isDark = isDark {
+            UserDefaults.standard.set(isDark, forKey: "Theme")
+        }
+        let isDarkMode = UserDefaults.standard.bool(forKey: "Theme")
+
+        view.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
+        stackTableView.backgroundColor = isDarkMode ? .black : .secondarySystemBackground
+
+        navigationController?.navigationBar.tintColor = isDarkMode ? .white : .black
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: isDarkMode ? UIColor.white : UIColor.black]
+        navigationItem.rightBarButtonItem?.tintColor = isDarkMode ? .white : .black
+
         stackTableView.reloadData()
     }
     
@@ -68,22 +84,14 @@ class SettingView: UIViewController {
 
 extension SettingView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return titles.count
+        return settings.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.SetupID, for: indexPath) as! CustomTableViewCell
-        
-        
-        let isDarkMode = overrideUserInterfaceStyle == .dark
-        
-        
-        cell.setup(title: titles[indexPath.row], image: images[indexPath.row], isDarkMode: isDarkMode)
-        
-        
+        let isDarkMode = UserDefaults.standard.bool(forKey: "Theme")
+        cell.setup(settings: settings[indexPath.row], isDarkMode: isDarkMode)
         cell.delegate = self
-        
-        
         if indexPath.row == 0 {
             cell.languageButton.isHidden = false
             cell.buttonSwitch.isHidden = true
@@ -100,10 +108,10 @@ extension SettingView: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-
 extension SettingView: ThemeSwitchDelegate {
     func themeSwitchDidToggle(isOn: Bool) {
+        UserDefaults.standard.set(isOn, forKey: "Theme")
         overrideUserInterfaceStyle = isOn ? .dark : .light
-        updateInterfaceForTheme(isDark: isOn)
+        updateInterfaceForTheme()
     }
 }

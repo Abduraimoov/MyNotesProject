@@ -65,10 +65,29 @@ class HomeView: UIViewController {
         setupNavigationItem()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if UserDefaults.standard.bool(forKey: "Theme") == false {
+            view.overrideUserInterfaceStyle = .light
+        } else {
+            view.overrideUserInterfaceStyle = .dark
+        }
+    }
+    
     private func setupNavigationItem() {
         navigationItem.title = "Home"
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(itemButtonTapped))
         navigationItem.rightBarButtonItem = rightBarButtonItem
+    }
+    
+    private func updateInterfaceForTheme(isDark: Bool? = nil) {
+        if let isDark = isDark {
+            UserDefaults.standard.set(isDark, forKey: "Theme")
+        }
+        let isDarkMode = UserDefaults.standard.bool(forKey: "Theme")
+        navigationController?.navigationBar.tintColor = isDarkMode ? .white : .black
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: isDarkMode ? UIColor.white : UIColor.black]
+        navigationItem.rightBarButtonItem?.tintColor = isDarkMode ? .white : .black
     }
     
     @objc func itemButtonTapped() {

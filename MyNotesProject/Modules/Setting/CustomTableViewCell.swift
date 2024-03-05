@@ -12,22 +12,23 @@ protocol ThemeSwitchDelegate: AnyObject {
     func themeSwitchDidToggle(isOn: Bool)
 }
 
+struct Settings {
+    var titleLabel: String
+    var leftImage: String
+}
+
 class CustomTableViewCell: UITableViewCell {
     
     weak var delegate: ThemeSwitchDelegate?
 
     static var SetupID = "note_cell"
     
-    private lazy var languageImage: UIImageView = {
-        let image = UIImageView()
-        image.tintColor = .label
-        return image
+    private lazy var leftImageView: UIImageView = {
+        let view = UIImageView()
+        return view
     }()
     
-    private lazy var languegeLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
+    private lazy var titleLabel = UILabel()
     
     var languageButton: UIButton = {
         let button = UIButton(type: .system)
@@ -41,21 +42,10 @@ class CustomTableViewCell: UITableViewCell {
     
     var buttonSwitch: UISwitch = {
         let view = UISwitch()
+        view.isOn = UserDefaults.standard.bool(forKey: "Theme")
         return view
     }()
     
-    private lazy var trashButton: UIButton = {
-          var configuration = UIButton.Configuration.plain()
-          configuration.attributedTitle = "Очистить данные"
-          configuration.image = UIImage(systemName: "trash")
-          configuration.imagePlacement = .leading
-          configuration.imagePadding = 7
-          let view = UIButton(configuration: configuration)
-          view.tintColor = .label
-          view.translatesAutoresizingMaskIntoConstraints = false
-          return view
-      }()
- 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
@@ -74,11 +64,11 @@ class CustomTableViewCell: UITableViewCell {
     }
     
     func setup(title: String) {
-        languegeLabel.text = title
+        titleLabel.text = title
     }
     
     func setup(image: UIImage) {
-        languageImage.image = image
+        leftImageView.image = image
     }
     
     private func setupSwitch() {
@@ -89,28 +79,30 @@ class CustomTableViewCell: UITableViewCell {
         delegate?.themeSwitchDidToggle(isOn: sender.isOn)
     }
     
-    func setup(title: String, image: UIImage, isDarkMode: Bool = false) {
-        languegeLabel.text = title
-        languageImage.image = image
+    func setup(settings: Settings, isDarkMode: Bool) {
+        titleLabel.text = settings.titleLabel
+        let iconImage = UIImage(systemName: settings.leftImage)?.withRenderingMode(.alwaysTemplate)
+        leftImageView.image = iconImage
         let contentColor = isDarkMode ? UIColor.white : UIColor.black
-        languegeLabel.textColor = contentColor
-        languageButton.tintColor = contentColor
-        trashButton.tintColor = contentColor
+        leftImageView.tintColor = contentColor
+        titleLabel.textColor = contentColor
+
     }
+
 
     
     private func setupView() {
-        contentView.addSubview(languageImage)
-        languageImage.snp.makeConstraints { make in
+        contentView.addSubview(leftImageView)
+        leftImageView.snp.makeConstraints { make in
             make.centerY.equalTo(contentView)
             make.leading.equalTo(contentView).offset(16)
             make.height.width.equalTo(24)
         }
         
-        contentView.addSubview(languegeLabel)
-        languegeLabel.snp.makeConstraints { make in
+        contentView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
             make.centerY.equalTo(contentView)
-            make.leading.equalTo(languageImage.snp.trailing).offset(13)
+            make.leading.equalTo(leftImageView.snp.trailing).offset(13)
         }
         
         contentView.addSubview(languageButton)
@@ -125,11 +117,7 @@ class CustomTableViewCell: UITableViewCell {
             make.trailing.equalTo(contentView).offset(-25)
         }
         
-        contentView.addSubview(trashButton)
-        trashButton.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.bottom).offset(65)
-            make.leading.equalTo(contentView).offset(5)
-        }
+
      
     }
 
