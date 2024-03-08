@@ -10,6 +10,9 @@
 		854BB0E72B91D208000EE4C5 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854BB0E62B91D208000EE4C5 /* CustomTableViewCell.swift */; };
 		854BB0EA2B91E2BC000EE4C5 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 854BB0E92B91E2BC000EE4C5 /* SnapKit */; };
 		8596CD582B90D4FB004154DC /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8596CD572B90D4FB004154DC /* UIColor.swift */; };
+		85A8EDE52B9B1A17005CE2D5 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A8EDE42B9B1A17005CE2D5 /* OnBoardingView.swift */; };
+		85A8EDE72B9B1C96005CE2D5 /* OnBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A8EDE62B9B1C96005CE2D5 /* OnBoardCell.swift */; };
+		85A8EDE92B9B38DF005CE2D5 /* StructBoardings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A8EDE82B9B38DF005CE2D5 /* StructBoardings.swift */; };
 		85E2E3622B89CD6F00E8212F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E2E3612B89CD6F00E8212F /* AppDelegate.swift */; };
 		85E2E3642B89CD6F00E8212F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E2E3632B89CD6F00E8212F /* SceneDelegate.swift */; };
 		85E2E36B2B89CD7200E8212F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85E2E36A2B89CD7200E8212F /* Assets.xcassets */; };
@@ -26,6 +29,9 @@
 /* Begin PBXFileReference section */
 		854BB0E62B91D208000EE4C5 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		8596CD572B90D4FB004154DC /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		85A8EDE42B9B1A17005CE2D5 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
+		85A8EDE62B9B1C96005CE2D5 /* OnBoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardCell.swift; sourceTree = "<group>"; };
+		85A8EDE82B9B38DF005CE2D5 /* StructBoardings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructBoardings.swift; sourceTree = "<group>"; };
 		85E2E35E2B89CD6F00E8212F /* MyNotesProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyNotesProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85E2E3612B89CD6F00E8212F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		85E2E3632B89CD6F00E8212F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +67,16 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		85A8EDE32B9B19D3005CE2D5 /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+				85A8EDE42B9B1A17005CE2D5 /* OnBoardingView.swift */,
+				85A8EDE62B9B1C96005CE2D5 /* OnBoardCell.swift */,
+				85A8EDE82B9B38DF005CE2D5 /* StructBoardings.swift */,
+			);
+			path = OnBoarding;
+			sourceTree = "<group>";
+		};
 		85E2E3552B89CD6F00E8212F = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +96,7 @@
 		85E2E3602B89CD6F00E8212F /* MyNotesProject */ = {
 			isa = PBXGroup;
 			children = (
+				85A8EDE32B9B19D3005CE2D5 /* OnBoarding */,
 				85E2E3752B89CD9100E8212F /* Delegate */,
 				8596CD562B90D4E3004154DC /* Helper */,
 				85E2E3782B89CDDB00E8212F /* Modules */,
@@ -214,6 +231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85A8EDE92B9B38DF005CE2D5 /* StructBoardings.swift in Sources */,
 				85E2E37B2B89CE1A00E8212F /* HomeView.swift in Sources */,
 				85E2E37F2B89CE4900E8212F /* HomeController.swift in Sources */,
 				854BB0E72B91D208000EE4C5 /* CustomTableViewCell.swift in Sources */,
@@ -223,7 +241,9 @@
 				85E2E37D2B89CE3000E8212F /* NoteCell.swift in Sources */,
 				8596CD582B90D4FB004154DC /* UIColor.swift in Sources */,
 				85E2E3622B89CD6F00E8212F /* AppDelegate.swift in Sources */,
+				85A8EDE52B9B1A17005CE2D5 /* OnBoardingView.swift in Sources */,
 				85E2E3642B89CD6F00E8212F /* SceneDelegate.swift in Sources */,
+				85A8EDE72B9B1C96005CE2D5 /* OnBoardCell.swift in Sources */,
 				85E2E3882B8A2BFF00E8212F /* SettingModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

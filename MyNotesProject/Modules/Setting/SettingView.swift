@@ -47,7 +47,6 @@ class SettingView: UIViewController {
     private func setupNavigationItem() {
         navigationItem.title = "Settings"
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(settingsButtonTapped))
-        self.navigationController?.navigationBar.tintColor = UIColor.black
         navigationItem.rightBarButtonItem = rightBarButtonItem
     }
     

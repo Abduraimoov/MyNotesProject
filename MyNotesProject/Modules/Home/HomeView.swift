@@ -58,11 +58,13 @@ class HomeView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        updateInterfaceForTheme()
+        setupNavigationItem()
         setupUI()
         setupCollectionView()
         controller = HomeController(view: self)
         controller?.onGetNotes()
-        setupNavigationItem()
+        navigationItem.hidesBackButton = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,6 +80,7 @@ class HomeView: UIViewController {
         navigationItem.title = "Home"
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(itemButtonTapped))
         navigationItem.rightBarButtonItem = rightBarButtonItem
+
     }
     
     private func updateInterfaceForTheme(isDark: Bool? = nil) {
