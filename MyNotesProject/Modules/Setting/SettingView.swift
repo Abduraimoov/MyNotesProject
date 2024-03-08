@@ -18,7 +18,6 @@ class SettingView: UIViewController {
         let tableView = UITableView()
         tableView.rowHeight = 55
         tableView.layer.cornerRadius = 10
-        //tableView.backgroundColor = .secondarySystemBackground
         tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
@@ -31,7 +30,6 @@ class SettingView: UIViewController {
         view.backgroundColor = .systemBackground
         setupUIView()
         setupNavigationItem()
-       // updateInterfaceForTheme()
         updateInterfaceForTheme()
     }
     

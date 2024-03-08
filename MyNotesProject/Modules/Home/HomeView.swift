@@ -162,6 +162,4 @@ extension HomeView: HomeViewProtocol {
         notesCollectionView.reloadData()
     }
     
-    
 }
-

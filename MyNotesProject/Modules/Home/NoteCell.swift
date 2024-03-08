@@ -33,6 +33,7 @@ class NoteCell: UICollectionViewCell {
     
     func setup(title: String) {
         titleLabel.text = title
+        titleLabel.textColor = .black
     }
     
     private func setupConstraints() {
@@ -40,9 +41,7 @@ class NoteCell: UICollectionViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-           // titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-           // titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
         ])
     }
 }
