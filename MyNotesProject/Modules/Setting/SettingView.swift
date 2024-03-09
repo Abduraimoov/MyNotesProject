@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class SettingView: UIViewController {
-   
+    
     private var settings: [Settings] = [Settings(titleLabel: "Язык", leftImage: "character.book.closed"),
                                         Settings(titleLabel: "Темная тема", leftImage: "moon"),
                                         Settings(titleLabel: "Очистить данные", leftImage: "trash"),]
@@ -63,14 +63,14 @@ class SettingView: UIViewController {
             UserDefaults.standard.set(isDark, forKey: "Theme")
         }
         let isDarkMode = UserDefaults.standard.bool(forKey: "Theme")
-
+        
         view.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
         stackTableView.backgroundColor = isDarkMode ? .black : .secondarySystemBackground
-
+        
         navigationController?.navigationBar.tintColor = isDarkMode ? .white : .black
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: isDarkMode ? UIColor.white : UIColor.black]
         navigationItem.rightBarButtonItem?.tintColor = isDarkMode ? .white : .black
-
+        
         stackTableView.reloadData()
     }
     

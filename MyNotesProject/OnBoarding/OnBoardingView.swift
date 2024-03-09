@@ -49,7 +49,7 @@ class OnBoardingView: UIViewController  {
         let view = UIButton(type: .system)
         view.setTitle("Next", for: .normal)
         view.setTitleColor(.white, for: .normal)
-        view.backgroundColor = .red
+        view.backgroundColor = UIColor().rgb(r: 255, g: 61, b: 61, alpha: 1)
         view.layer.cornerRadius = 22
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)

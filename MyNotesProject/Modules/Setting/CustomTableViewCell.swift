@@ -20,7 +20,7 @@ struct Settings {
 class CustomTableViewCell: UITableViewCell {
     
     weak var delegate: ThemeSwitchDelegate?
-
+    
     static var SetupID = "note_cell"
     
     private lazy var leftImageView: UIImageView = {
@@ -57,7 +57,7 @@ class CustomTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         contentView.backgroundColor = .secondarySystemBackground
@@ -74,7 +74,7 @@ class CustomTableViewCell: UITableViewCell {
     private func setupSwitch() {
         buttonSwitch.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
     }
-
+    
     @objc private func switchValueChanged(_ sender: UISwitch) {
         delegate?.themeSwitchDidToggle(isOn: sender.isOn)
     }
@@ -86,10 +86,10 @@ class CustomTableViewCell: UITableViewCell {
         let contentColor = isDarkMode ? UIColor.white : UIColor.black
         leftImageView.tintColor = contentColor
         titleLabel.textColor = contentColor
-
+        
     }
-
-
+    
+    
     
     private func setupView() {
         contentView.addSubview(leftImageView)
@@ -117,8 +117,8 @@ class CustomTableViewCell: UITableViewCell {
             make.trailing.equalTo(contentView).offset(-25)
         }
         
-
-     
+        
+        
     }
-
+    
 }

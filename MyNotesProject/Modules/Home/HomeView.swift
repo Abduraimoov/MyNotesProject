@@ -48,19 +48,20 @@ class HomeView: UIViewController {
         let view = UIButton(type: .system)
         view.setTitle("+", for: .normal)
         view.titleLabel?.font = UIFont.systemFont(ofSize: 30)
-        view.backgroundColor = .red
+        view.backgroundColor = UIColor().rgb(r: 255, g: 61, b: 61, alpha: 1)
         view.setTitleColor(.white, for: .normal)
         view.layer.cornerRadius = 21
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.addTarget(self, action: #selector(NewNotesTapped), for: .touchUpInside)
         return view
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        setupUI()
         updateInterfaceForTheme()
         setupNavigationItem()
-        setupUI()
         setupCollectionView()
         controller = HomeController(view: self)
         controller?.onGetNotes()
@@ -80,7 +81,7 @@ class HomeView: UIViewController {
         navigationItem.title = "Home"
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(itemButtonTapped))
         navigationItem.rightBarButtonItem = rightBarButtonItem
-
+        
     }
     
     private func updateInterfaceForTheme(isDark: Bool? = nil) {
@@ -97,7 +98,7 @@ class HomeView: UIViewController {
         let vc = SettingView()
         navigationController?.pushViewController(vc, animated: true)
     }
-
+    
     private func setupUI() {
         view.addSubview(noteSearchBar)
         view.addSubview(titleLabel)
@@ -115,7 +116,6 @@ class HomeView: UIViewController {
             addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             addButton.heightAnchor.constraint(equalToConstant: 42),
             addButton.widthAnchor.constraint(equalToConstant: 42)
-            
         ])
     }
     
@@ -125,11 +125,16 @@ class HomeView: UIViewController {
             notesCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
             notesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             notesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            notesCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-           
+            notesCollectionView.heightAnchor.constraint(equalToConstant: 400)
+            
         ])
     }
-
+    
+    @objc func NewNotesTapped() {
+        let vc = NewNotesView()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
 
 extension HomeView: UICollectionViewDataSource  {
@@ -139,14 +144,24 @@ extension HomeView: UICollectionViewDataSource  {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoteCell.reuseId, for: indexPath) as! NoteCell
-        cell.setup(title: notes[indexPath.row])
-        print(indexPath)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoteCell.reuseId, for: indexPath) as? NoteCell else {
+            return UICollectionViewCell()
+        }
+        
+        let note = notes[indexPath.row]
+        
+        let colors: [UIColor] = [
+            UIColor().rgb(r: 217, g: 187, b: 249, alpha: 1),
+            UIColor().rgb(r: 215, g: 247, b: 242, alpha: 1),
+            UIColor().rgb(r: 215, g: 237, b: 248, alpha: 1),
+            UIColor().rgb(r: 255, g: 245, b: 225, alpha: 1)
+        ]
+        let color = colors[indexPath.row % colors.count]
+        cell.setup(title: note, color: color)
         return cell
     }
-    
-    
 }
+
 
 
 extension HomeView: UICollectionViewDelegateFlowLayout {

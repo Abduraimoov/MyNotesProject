@@ -11,19 +11,17 @@ class NoteCell: UICollectionViewCell {
     
     static var reuseId = "note_cell"
     
-    let colors: [UIColor] = [.systemPink, .cyan, .systemOrange, .systemGreen, .magenta, .orange, .yellow]
-    
     private lazy var titleLabel: UILabel = {
         let view = UILabel()
         view.font = .systemFont(ofSize: 14, weight: .medium)
         view.numberOfLines = 0
+        view.textColor = .black
         return view
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         layer.cornerRadius = 10
-        backgroundColor = colors.randomElement()
         setupConstraints()
     }
     
@@ -31,9 +29,9 @@ class NoteCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(title: String) {
+    func setup(title: String, color: UIColor) {
         titleLabel.text = title
-        titleLabel.textColor = .black
+        backgroundColor = color
     }
     
     private func setupConstraints() {
@@ -45,4 +43,3 @@ class NoteCell: UICollectionViewCell {
         ])
     }
 }
-

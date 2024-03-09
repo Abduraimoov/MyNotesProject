@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		854BB0E72B91D208000EE4C5 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854BB0E62B91D208000EE4C5 /* CustomTableViewCell.swift */; };
 		854BB0EA2B91E2BC000EE4C5 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 854BB0E92B91E2BC000EE4C5 /* SnapKit */; };
-		8596CD582B90D4FB004154DC /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8596CD572B90D4FB004154DC /* UIColor.swift */; };
+		8564E7BA2B9C780F00CF9CFC /* NewNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8564E7B92B9C780F00CF9CFC /* NewNotesView.swift */; };
+		8596CD582B90D4FB004154DC /* Extension +UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8596CD572B90D4FB004154DC /* Extension +UIColor.swift */; };
 		85A8EDE52B9B1A17005CE2D5 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A8EDE42B9B1A17005CE2D5 /* OnBoardingView.swift */; };
 		85A8EDE72B9B1C96005CE2D5 /* OnBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A8EDE62B9B1C96005CE2D5 /* OnBoardCell.swift */; };
 		85A8EDE92B9B38DF005CE2D5 /* StructBoardings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A8EDE82B9B38DF005CE2D5 /* StructBoardings.swift */; };
@@ -28,7 +29,8 @@
 
 /* Begin PBXFileReference section */
 		854BB0E62B91D208000EE4C5 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
-		8596CD572B90D4FB004154DC /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		8564E7B92B9C780F00CF9CFC /* NewNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNotesView.swift; sourceTree = "<group>"; };
+		8596CD572B90D4FB004154DC /* Extension +UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension +UIColor.swift"; sourceTree = "<group>"; };
 		85A8EDE42B9B1A17005CE2D5 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
 		85A8EDE62B9B1C96005CE2D5 /* OnBoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardCell.swift; sourceTree = "<group>"; };
 		85A8EDE82B9B38DF005CE2D5 /* StructBoardings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructBoardings.swift; sourceTree = "<group>"; };
@@ -59,12 +61,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8596CD562B90D4E3004154DC /* Helper */ = {
+		8564E7B82B9C74C900CF9CFC /* NewNotes */ = {
 			isa = PBXGroup;
 			children = (
-				8596CD572B90D4FB004154DC /* UIColor.swift */,
+				8564E7B92B9C780F00CF9CFC /* NewNotesView.swift */,
 			);
-			path = Helper;
+			path = NewNotes;
+			sourceTree = "<group>";
+		};
+		8596CD562B90D4E3004154DC /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				8596CD572B90D4FB004154DC /* Extension +UIColor.swift */,
+			);
+			path = SupportFiles;
 			sourceTree = "<group>";
 		};
 		85A8EDE32B9B19D3005CE2D5 /* OnBoarding */ = {
@@ -98,7 +108,7 @@
 			children = (
 				85A8EDE32B9B19D3005CE2D5 /* OnBoarding */,
 				85E2E3752B89CD9100E8212F /* Delegate */,
-				8596CD562B90D4E3004154DC /* Helper */,
+				8596CD562B90D4E3004154DC /* SupportFiles */,
 				85E2E3782B89CDDB00E8212F /* Modules */,
 				85E2E3762B89CDAE00E8212F /* Recourse */,
 				85E2E36F2B89CD7200E8212F /* Info.plist */,
@@ -127,6 +137,7 @@
 		85E2E3782B89CDDB00E8212F /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				8564E7B82B9C74C900CF9CFC /* NewNotes */,
 				85E2E3792B89CDF700E8212F /* Home */,
 				85E2E3822B89D73D00E8212F /* Setting */,
 			);
@@ -239,11 +250,12 @@
 				85E2E3842B89D75D00E8212F /* SettingView.swift in Sources */,
 				85E2E3862B8A2BDA00E8212F /* SettingController.swift in Sources */,
 				85E2E37D2B89CE3000E8212F /* NoteCell.swift in Sources */,
-				8596CD582B90D4FB004154DC /* UIColor.swift in Sources */,
+				8596CD582B90D4FB004154DC /* Extension +UIColor.swift in Sources */,
 				85E2E3622B89CD6F00E8212F /* AppDelegate.swift in Sources */,
 				85A8EDE52B9B1A17005CE2D5 /* OnBoardingView.swift in Sources */,
 				85E2E3642B89CD6F00E8212F /* SceneDelegate.swift in Sources */,
 				85A8EDE72B9B1C96005CE2D5 /* OnBoardCell.swift in Sources */,
+				8564E7BA2B9C780F00CF9CFC /* NewNotesView.swift in Sources */,
 				85E2E3882B8A2BFF00E8212F /* SettingModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
