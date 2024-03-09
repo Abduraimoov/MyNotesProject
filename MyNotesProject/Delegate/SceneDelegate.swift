@@ -13,12 +13,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let windowScene = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else {
+            return
+        }
+        
         let window = UIWindow(windowScene: windowScene)
-        let nav1 = UINavigationController(rootViewController: OnBoardingView())
-        window.rootViewController = nav1
+        
+        var rootViewController: UIViewController?
+        if UserDefaults.standard.bool(forKey: "One_Board_cell") == true {
+            rootViewController = HomeView()
+        } else {
+            rootViewController = OnBoardingView()
+        }
+        
+        let navigationController = UINavigationController(rootViewController: rootViewController!)
+        
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
         self.window = window
-        self.window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
