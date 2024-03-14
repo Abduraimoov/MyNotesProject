@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,6 +30,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
+    lazy var persistentContainers: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "Note")
+        container.loadPersistentStores(completionHandler: { description, error in
+            if let error {
+                print(error.localizedDescription)
+            } else {
+                
+            }
+        })
+        return container
+    }()
+
+    
+    func saveContext() {
+        let context = persistentContainers.viewContext
+        
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                let error = error as! Error
+                fatalError(error.localizedDescription)
+                
+            }
+        }
+    }
     
 }
 

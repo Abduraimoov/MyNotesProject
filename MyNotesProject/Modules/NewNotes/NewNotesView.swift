@@ -8,6 +8,9 @@
 import UIKit
 
 class NewNotesView: UIViewController, UITextViewDelegate {
+
+    private let coreCoreService = CoreDataService.shared
+    var note: Note?
     
     private lazy var noteSearchBar: UISearchBar = {
         let view = UISearchBar()
@@ -22,6 +25,8 @@ class NewNotesView: UIViewController, UITextViewDelegate {
         let view = UITextView()
         view.backgroundColor = UIColor().rgb(r: 238, g: 238, b: 239, alpha: 1)
         view.layer.cornerRadius = 20
+        view.textColor = .black
+        view.font = UIFont.systemFont(ofSize: 14)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -50,6 +55,12 @@ class NewNotesView: UIViewController, UITextViewDelegate {
         setupUI()
         myTextView.delegate = self
         noteSearchBar.searchTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        
+        guard let note = note else {
+            return
+        }
+        noteSearchBar.text = note.title
+        myTextView.text = note.deck
     }
     
     private func setupUI() {
@@ -150,10 +161,18 @@ class NewNotesView: UIViewController, UITextViewDelegate {
         updateSaveButtonState()
     }
     
-    @objc private func saveButtonPressed() {
+    @objc  func saveButtonPressed() {
+        let id = UUID().uuidString
+        
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateString = dateFormatter.string(from: date)
+        
         if !(noteSearchBar.searchTextField.text?.isEmpty ?? true) || !(myTextView.text.isEmpty) {
-            navigationController?.popToRootViewController(animated: true)
-        }
+            coreCoreService.addNote(id: id, title: noteSearchBar.text ?? "", description: myTextView.text, date: dateString)
+            navigationController?.pushViewController(HomeView(), animated: true)
+       }
     }
     
 }

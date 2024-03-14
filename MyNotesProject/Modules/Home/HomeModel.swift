@@ -13,13 +13,16 @@ class HomeModel: HomeModelProtocol {
     
     private let controller: HomeControllerProtocol?
     
+    private let coreDataService = CoreDataService.shared
+    
     init(controller: HomeControllerProtocol) {
         self.controller = controller
     }
     
-    private var notes: [String] = ["School notes", "Funny jokes", "Travel bucket list ", "Random cooking ideas"]
+    private var notes: [Note] = []
     
     func getNotes() {
+        notes = coreDataService.fetchNotes()
         controller?.onSuccesNotes(notes: notes)
     }
     

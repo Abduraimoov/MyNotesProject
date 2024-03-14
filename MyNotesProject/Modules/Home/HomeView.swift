@@ -8,14 +8,14 @@
 import UIKit
 
 protocol HomeViewProtocol {
-    func succesNotes(notes: [String])
+    func succesNotes(notes: [Note])
 }
 
 class HomeView: UIViewController {
     
     private var controller: HomeControllerProtocol?
     
-    private var notes: [String] = []
+    private var notes: [Note] = []
     
     private lazy var noteSearchBar: UISearchBar = {
         let view = UISearchBar()
@@ -63,8 +63,8 @@ class HomeView: UIViewController {
         updateInterfaceForTheme()
         setupNavigationItem()
         setupCollectionView()
+        setupButton()
         controller = HomeController(view: self)
-        controller?.onGetNotes()
         navigationItem.hidesBackButton = true
     }
     
@@ -75,6 +75,7 @@ class HomeView: UIViewController {
         } else {
             view.overrideUserInterfaceStyle = .dark
         }
+        controller?.onGetNotes()
     }
     
     private func setupNavigationItem() {
@@ -102,7 +103,6 @@ class HomeView: UIViewController {
     private func setupUI() {
         view.addSubview(noteSearchBar)
         view.addSubview(titleLabel)
-        view.addSubview(addButton)
         NSLayoutConstraint.activate([
             noteSearchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             noteSearchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -110,12 +110,8 @@ class HomeView: UIViewController {
             noteSearchBar.heightAnchor.constraint(equalToConstant: 36),
             
             titleLabel.topAnchor.constraint(equalTo: noteSearchBar.bottomAnchor, constant: 22),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 39),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 39)
             
-            addButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -133),
-            addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            addButton.heightAnchor.constraint(equalToConstant: 42),
-            addButton.widthAnchor.constraint(equalToConstant: 42)
         ])
     }
     
@@ -125,8 +121,17 @@ class HomeView: UIViewController {
             notesCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
             notesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             notesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            notesCollectionView.heightAnchor.constraint(equalToConstant: 400)
-            
+            notesCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    private func setupButton() {
+        view.addSubview(addButton)
+        NSLayoutConstraint.activate([
+            addButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -133),
+            addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            addButton.heightAnchor.constraint(equalToConstant: 42),
+            addButton.widthAnchor.constraint(equalToConstant: 42)
         ])
     }
     
@@ -148,7 +153,7 @@ extension HomeView: UICollectionViewDataSource  {
             return UICollectionViewCell()
         }
         
-        let note = notes[indexPath.row]
+        let note = notes[indexPath.row].title ?? ""
         
         let colors: [UIColor] = [
             UIColor().rgb(r: 217, g: 187, b: 249, alpha: 1),
@@ -169,10 +174,16 @@ extension HomeView: UICollectionViewDelegateFlowLayout {
         return CGSize(width: (collectionView.frame.width - 12) / 2 , height: 100)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let noteView = NewNotesView()
+        noteView.note = notes[indexPath.row]
+        navigationController?.pushViewController(noteView, animated: true)
+    }
+    
 }
 
 extension HomeView: HomeViewProtocol {
-    func succesNotes(notes: [String]) {
+    func succesNotes(notes: [Note]) {
         self.notes = notes
         notesCollectionView.reloadData()
     }
