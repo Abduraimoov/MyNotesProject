@@ -8,6 +8,7 @@
 import UIKit
 
 protocol HomeViewProtocol {
+    
     func succesNotes(notes: [Note])
 }
 
@@ -21,6 +22,7 @@ class HomeView: UIViewController {
         let view = UISearchBar()
         view.placeholder = "Search"
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.searchTextField.addTarget(self, action: #selector(noteSearchBarEditingChanged), for: .editingChanged)
         return view
     }()
     
@@ -136,8 +138,13 @@ class HomeView: UIViewController {
     }
     
     @objc func NewNotesTapped() {
-        let vc = NewNotesView()
-        navigationController?.pushViewController(vc, animated: true)
+        let noteView = NewNotesView()
+      //  noteView.isUpdating = false
+        navigationController?.pushViewController(noteView, animated: true)
+    }
+    
+    @objc func noteSearchBarEditingChanged() {
+        controller?.onNoteSearching(text: noteSearchBar.text ?? "")
     }
     
 }
@@ -177,6 +184,7 @@ extension HomeView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let noteView = NewNotesView()
         noteView.note = notes[indexPath.row]
+     //   noteView.isUpdating = true
         navigationController?.pushViewController(noteView, animated: true)
     }
     

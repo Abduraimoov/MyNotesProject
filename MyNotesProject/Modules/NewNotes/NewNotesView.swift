@@ -10,7 +10,10 @@ import UIKit
 class NewNotesView: UIViewController, UITextViewDelegate {
 
     private let coreCoreService = CoreDataService.shared
+    
     var note: Note?
+    
+ //   var isUpdating: Bool = false
     
     private lazy var noteSearchBar: UISearchBar = {
         let view = UISearchBar()
@@ -82,8 +85,8 @@ class NewNotesView: UIViewController, UITextViewDelegate {
     }
     
     private func setupNavigationItem() {
-        navigationItem.title = "Settings"
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(itemButtonTapped))
+        navigationItem.title = "Notes"
+        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(itemButtonTapped))
         navigationItem.rightBarButtonItem = rightBarButtonItem
         
     }
@@ -133,7 +136,11 @@ class NewNotesView: UIViewController, UITextViewDelegate {
     //MARK: - objc funcs
     
     @objc func itemButtonTapped() {
-        print("Работает")
+        guard let note = note else {
+            return
+        }
+        coreCoreService.delete(id: note.id ?? "")
+        navigationController?.popViewController(animated: true)
     }
     
     @objc private func copyButtonTapped() {
@@ -162,17 +169,22 @@ class NewNotesView: UIViewController, UITextViewDelegate {
     }
     
     @objc  func saveButtonPressed() {
-        let id = UUID().uuidString
-        
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let dateString = dateFormatter.string(from: date)
         
-        if !(noteSearchBar.searchTextField.text?.isEmpty ?? true) || !(myTextView.text.isEmpty) {
-            coreCoreService.addNote(id: id, title: noteSearchBar.text ?? "", description: myTextView.text, date: dateString)
-            navigationController?.pushViewController(HomeView(), animated: true)
-       }
+        if let note = note {
+            coreCoreService.updateNote(id: note.id ?? "", title: noteSearchBar.text ?? "", description: myTextView.text, date: dateString)
+            navigationController?.popViewController(animated: true)
+        } else {
+            let id = UUID().uuidString
+            if !(noteSearchBar.searchTextField.text?.isEmpty ?? true) || !(myTextView.text.isEmpty) {
+                coreCoreService.addNote(id: id, title: noteSearchBar.text ?? "", description: myTextView.text, date: dateString)
+                navigationController?.popViewController(animated: true)
+           }
+        }
+        
     }
     
 }

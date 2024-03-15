@@ -10,6 +10,8 @@ import SnapKit
 
 class SettingView: UIViewController {
     
+    private let coreDataservice = CoreDataService.shared
+    
     private var settings: [Settings] = [Settings(titleLabel: "Язык", leftImage: "character.book.closed"),
                                         Settings(titleLabel: "Темная тема", leftImage: "moon"),
                                         Settings(titleLabel: "Очистить данные", leftImage: "trash"),]
@@ -103,6 +105,13 @@ extension SettingView: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 2 {
+            coreDataservice.deleteNotes()
+        }
+    }
+    
 }
 
 extension SettingView: ThemeSwitchDelegate {
