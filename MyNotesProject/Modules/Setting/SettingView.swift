@@ -8,9 +8,16 @@
 import UIKit
 import SnapKit
 
+protocol settingViewProtocol {
+    func succesDelete()
+    
+    func failureDelete()
+}
+
 class SettingView: UIViewController {
     
-    private let coreDataservice = CoreDataService.shared
+    var controller: SettingControllerProtocol?
+    
     
     private var settings: [Settings] = [Settings(titleLabel: "Язык", leftImage: "character.book.closed"),
                                         Settings(titleLabel: "Темная тема", leftImage: "moon"),
@@ -29,6 +36,7 @@ class SettingView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        controller = SettingController(view: self)
         view.backgroundColor = .systemBackground
         setupUIView()
         setupNavigationItem()
@@ -91,6 +99,7 @@ extension SettingView: UITableViewDataSource, UITableViewDelegate {
         let isDarkMode = UserDefaults.standard.bool(forKey: "Theme")
         cell.setup(settings: settings[indexPath.row], isDarkMode: isDarkMode)
         cell.delegate = self
+        cell.delegates = self
         if indexPath.row == 0 {
             cell.languageButton.isHidden = false
             cell.buttonSwitch.isHidden = true
@@ -108,8 +117,33 @@ extension SettingView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 {
-            coreDataservice.deleteNotes()
+            
+            let alert = UIAlertController(title: "Удаление", message: "Вы действительно хотите удалить все заметку", preferredStyle: .alert)
+            let acceptAction = UIAlertAction(title: "Да", style: .destructive) { action in
+                self.controller?.onDeleteNotes()
+            }
+            
+            let actionDecline = UIAlertAction(title: "Нет", style: .cancel)
+            
+            alert.addAction(actionDecline)
+            alert.addAction(acceptAction)
+            
+            present(alert, animated: true)
         }
+    }
+    
+}
+
+extension SettingView: settingViewProtocol {
+    func succesDelete() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func failureDelete() {
+        let alert = UIAlertController(title: "Ошибка", message: "Не удалось удалить заметку!", preferredStyle: .alert)
+        let acceptAction = UIAlertAction(title: "ОК", style: .cancel)
+        alert.addAction(acceptAction)
+        present(alert, animated: true)
     }
     
 }
@@ -120,4 +154,13 @@ extension SettingView: ThemeSwitchDelegate {
         overrideUserInterfaceStyle = isOn ? .dark : .light
         updateInterfaceForTheme()
     }
+}
+
+extension SettingView: CustomTableViewCellDelegate {
+    func languageButtonTapped(inCell cell: CustomTableViewCell) {
+        
+        let vc = PresentView()
+        present(vc, animated: true)
+    }
+    
 }

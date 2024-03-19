@@ -42,4 +42,5 @@ class NoteCell: UICollectionViewCell {
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
         ])
     }
+    
 }

@@ -139,7 +139,6 @@ class HomeView: UIViewController {
     
     @objc func NewNotesTapped() {
         let noteView = NewNotesView()
-      //  noteView.isUpdating = false
         navigationController?.pushViewController(noteView, animated: true)
     }
     
@@ -184,7 +183,6 @@ extension HomeView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let noteView = NewNotesView()
         noteView.note = notes[indexPath.row]
-     //   noteView.isUpdating = true
         navigationController?.pushViewController(noteView, animated: true)
     }
     

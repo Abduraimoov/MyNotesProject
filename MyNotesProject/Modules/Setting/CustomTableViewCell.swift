@@ -12,6 +12,10 @@ protocol ThemeSwitchDelegate: AnyObject {
     func themeSwitchDidToggle(isOn: Bool)
 }
 
+protocol CustomTableViewCellDelegate: AnyObject {
+    func languageButtonTapped(inCell cell: CustomTableViewCell)
+}
+
 struct Settings {
     var titleLabel: String
     var leftImage: String
@@ -20,6 +24,8 @@ struct Settings {
 class CustomTableViewCell: UITableViewCell {
     
     weak var delegate: ThemeSwitchDelegate?
+    
+    weak var delegates: CustomTableViewCellDelegate?
     
     static var SetupID = "note_cell"
     
@@ -57,7 +63,6 @@ class CustomTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         contentView.backgroundColor = .secondarySystemBackground
@@ -79,6 +84,10 @@ class CustomTableViewCell: UITableViewCell {
         delegate?.themeSwitchDidToggle(isOn: sender.isOn)
     }
     
+    @objc func languageButtonTapped() {
+        delegates?.languageButtonTapped(inCell: self)
+    }
+    
     func setup(settings: Settings, isDarkMode: Bool) {
         titleLabel.text = settings.titleLabel
         let iconImage = UIImage(systemName: settings.leftImage)?.withRenderingMode(.alwaysTemplate)
@@ -86,10 +95,8 @@ class CustomTableViewCell: UITableViewCell {
         let contentColor = isDarkMode ? UIColor.white : UIColor.black
         leftImageView.tintColor = contentColor
         titleLabel.textColor = contentColor
-        
+        languageButton.addTarget(self, action: #selector(languageButtonTapped), for: .touchUpInside)
     }
-    
-    
     
     private func setupView() {
         contentView.addSubview(leftImageView)
@@ -116,9 +123,6 @@ class CustomTableViewCell: UITableViewCell {
             make.centerY.equalTo(contentView)
             make.trailing.equalTo(contentView).offset(-25)
         }
-        
-        
-        
     }
     
 }

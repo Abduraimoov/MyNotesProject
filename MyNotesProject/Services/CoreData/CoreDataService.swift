@@ -14,6 +14,11 @@ import CoreData
 //Put - update, patch
 // DELETE - delete
 
+enum coreDataResponse {
+    case success
+    case failure
+}
+
 class CoreDataService {
     static let shared = CoreDataService()
     
@@ -32,18 +37,26 @@ class CoreDataService {
     
     // post - запись, типа положить что-то на базу
     
-    func addNote(id: String, title: String, description: String, date: String) {
+    func addNote(id: String, title: String, description: String, date: String, completionHandler: @escaping (coreDataResponse) -> Void) {
         guard let entity = NSEntityDescription.entity(forEntityName: "Note", in: context) else {
+            completionHandler(.failure)
             return
         }
         
         let note = Note(entity: entity, insertInto: context)
         note.id = id
         note.title = title
-        note.deck = description 
+        note.deck = description
         note.date = date
         
         appDelegate.saveContext()
+        // Таймер для ячеек потом доделаю
+        //        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        //            completionHandler(.success)
+        //        }
+        DispatchQueue.main.async {
+            completionHandler(.success)
+        }
     }
     
     //get, fetch - записать, считать
@@ -75,34 +88,55 @@ class CoreDataService {
         appDelegate.saveContext()
     }
     
-    func delete(id: String) {
+    //MARK: - Удаление внутри ячеек
+    
+    func delete(id: String, completionHandler: @escaping (coreDataResponse) -> Void) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
         do {
             guard let notes = try context.fetch(fetchRequest) as? [Note], let note = notes.first(where: { note in
                 note.id == id
             }) else {
+                DispatchQueue.main.async {
+                    completionHandler(.failure)
+                }
                 return
             }
             context.delete(note)
+            DispatchQueue.main.async {
+                completionHandler(.success)
+            }
         } catch {
             print(error.localizedDescription)
+            DispatchQueue.main.async {
+                completionHandler(.failure)
+            }
         }
         appDelegate.saveContext()
     }
     
-    func deleteNotes() {
+    //MARK: - Общий удаление
+    
+    func deleteNotes(completionHandler: @escaping (coreDataResponse) -> Void) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
         
         do {
             guard let notes = try context.fetch(fetchRequest) as? [Note] else {
+                DispatchQueue.main.async {
+                    completionHandler(.failure)
+                }
                 return
             }
             notes.forEach { note in
                 context.delete(note)
             }
-            
+            DispatchQueue.main.async {
+                completionHandler(.success)
+            }
         } catch {
             print(error.localizedDescription)
+            DispatchQueue.main.async {
+                completionHandler(.failure)
+            }
         }
         appDelegate.saveContext()
     }
