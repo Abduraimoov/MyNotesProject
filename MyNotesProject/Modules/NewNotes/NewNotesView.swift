@@ -192,9 +192,10 @@ class NewNotesView: UIViewController, UITextViewDelegate {
     }
     
     @objc  func saveButtonPressed() {     
-        controller?.onAddNote(note: note, title: noteSearchBar.text ?? "", description: myTextView.text)
+        if !(noteSearchBar.searchTextField.text?.isEmpty ?? true) || !(myTextView.text.isEmpty) {
+            controller?.onAddNote(note: note, title: noteSearchBar.text ?? "", description: myTextView.text)
+        }
     }
-    
 }
 
 extension NewNotesView: NewNoteViewProtocol {

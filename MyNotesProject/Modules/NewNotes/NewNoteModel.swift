@@ -31,10 +31,9 @@ class NewNoteModel: NewNoteModelProtocol {
         
         if let note = note {
             coreDataService.updateNote(id: note.id ?? "", title: title, description: description, date: dateString)
-         //   navigationController?.popViewController(animated: true)
         } else {
             let id = UUID().uuidString
-//            if !(noteSearchBar.searchTextField.text?.isEmpty ?? true) || !(myTextView.text.isEmpty) {
+
             coreDataService.addNote(id: id, title: title, description: description, date: dateString) { response in
                 if response == .success {
                     self.controller?.onSuccesAddNote()
@@ -42,9 +41,6 @@ class NewNoteModel: NewNoteModelProtocol {
                     self.controller?.onFailureAddNote()
                 }
             }
-              //  navigationController?.popViewController(animated: true)
-            
-            //}
         }
         
     }
