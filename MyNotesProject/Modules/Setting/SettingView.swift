@@ -159,7 +159,7 @@ extension SettingView: ThemeSwitchDelegate {
 extension SettingView: CustomTableViewCellDelegate {
     func languageButtonTapped(inCell cell: CustomTableViewCell) {
         
-        let vc = PresentView()
+        let vc = LanguageView()
         present(vc, animated: true)
     }
     

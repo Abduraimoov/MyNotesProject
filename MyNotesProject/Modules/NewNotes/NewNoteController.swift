@@ -21,6 +21,8 @@ protocol NewNoteControllerProtocol {
     
     func onFailureDelete()
     
+    func onSuccessUpdateNote(note: Note?, id: String, title: String, description: String, date: String)
+    
 }
 
 class NewNoteController: NewNoteControllerProtocol {
@@ -56,5 +58,9 @@ class NewNoteController: NewNoteControllerProtocol {
     func onFailureDelete() {
         view?.failureDelete()
     }
+    
+    func onSuccessUpdateNote(note: Note?, id: String, title: String, description: String, date: String) {
+           view?.successUpdateNote()
+       }
     
 }

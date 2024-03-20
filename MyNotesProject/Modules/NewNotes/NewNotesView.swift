@@ -17,6 +17,8 @@ protocol NewNoteViewProtocol {
     
     func failureDelete()
     
+    func successUpdateNote()
+    
 }
 
 class NewNotesView: UIViewController, UITextViewDelegate {
@@ -194,6 +196,7 @@ class NewNotesView: UIViewController, UITextViewDelegate {
     @objc  func saveButtonPressed() {     
         if !(noteSearchBar.searchTextField.text?.isEmpty ?? true) || !(myTextView.text.isEmpty) {
             controller?.onAddNote(note: note, title: noteSearchBar.text ?? "", description: myTextView.text)
+            successUpdateNote()
         }
     }
 }
@@ -222,4 +225,9 @@ extension NewNotesView: NewNoteViewProtocol {
         present(alert, animated: true)
     }
     
+    func successUpdateNote() {
+           navigationController?.popViewController(animated: true)
+       }
+    
 }
+

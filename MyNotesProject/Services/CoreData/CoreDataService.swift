@@ -82,10 +82,11 @@ class CoreDataService {
             note.title = title
             note.deck = description
             note.date = date
+            appDelegate.saveContext()
         } catch {
             print(error.localizedDescription)
         }
-        appDelegate.saveContext()
+       
     }
     
     //MARK: - Удаление внутри ячеек

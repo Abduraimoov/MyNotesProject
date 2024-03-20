@@ -10,6 +10,8 @@ import Foundation
 protocol NewNoteModelProtocol {
     func AddNote(note: Note?, title: String, description: String)
     
+    func updateNote(note: Note?, id: String, title: String, description: String, date: String)
+    
     func deleteNote(id: String)
 }
 
@@ -44,6 +46,13 @@ class NewNoteModel: NewNoteModelProtocol {
         }
         
     }
+    
+    func updateNote(note: Note?, id: String, title: String, description: String, date: String) {
+         if let note = note {
+             coreDataService.updateNote(id: note.id ?? "", title: title, description: description, date: date)
+         }
+         controller?.onSuccessUpdateNote(note: note, id: id, title: title, description: description, date: date)
+     }
     
     func deleteNote(id: String) {
         coreDataService.delete(id: id) { response in
