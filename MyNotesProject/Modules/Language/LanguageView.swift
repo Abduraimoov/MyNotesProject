@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class LanguageView: UIViewController {
     
@@ -13,8 +14,17 @@ class LanguageView: UIViewController {
                                          Language(image: "Russian", title: "Руский"),
                                          Language(image: "America", title: "English")]
     
+    private lazy var languageLabel: UILabel = {
+        let view = UILabel()
+        view.text = "Выберите язык"
+        view.font = .systemFont(ofSize: 20, weight: .bold)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private lazy var LanguageTable: UITableView = {
         let view = UITableView()
+        view.isScrollEnabled = false
         view.translatesAutoresizingMaskIntoConstraints = false
         view.register(LanguageCell.self, forCellReuseIdentifier: LanguageCell.reuseID)
         view.delegate = self
@@ -24,8 +34,23 @@ class LanguageView: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = .systemBackground
+        setupConstrains()
+    }
+    
+    private func setupConstrains() {
+        view.addSubview(languageLabel)
+        view.addSubview(LanguageTable)
+        NSLayoutConstraint.activate([
+            languageLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 45),
+            languageLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 4),
+            
+            LanguageTable.topAnchor.constraint(equalTo: languageLabel.bottomAnchor, constant: 25),
+            LanguageTable.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
+            LanguageTable.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
+            LanguageTable.heightAnchor.constraint(equalToConstant: 150)
+        ])
+      
     }
     
 
@@ -35,7 +60,7 @@ class LanguageView: UIViewController {
 
 extension LanguageView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return languages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -48,7 +73,9 @@ extension LanguageView: UITableViewDataSource {
 }
 
 extension LanguageView: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
 }
 
 

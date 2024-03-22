@@ -19,6 +19,8 @@ class LanguageCell: UITableViewCell {
     
     private lazy var IconImage: UIImageView = {
         let view = UIImageView()
+        view.layer.cornerRadius = 32 / 2
+        view.clipsToBounds = true
         return view
     }()
     
@@ -30,6 +32,7 @@ class LanguageCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupContrains()
     }
     
     required init?(coder: NSCoder) {

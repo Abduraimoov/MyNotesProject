@@ -18,10 +18,9 @@ class SettingView: UIViewController {
     
     var controller: SettingControllerProtocol?
     
-    
-    private var settings: [Settings] = [Settings(titleLabel: "Язык", leftImage: "character.book.closed"),
-                                        Settings(titleLabel: "Темная тема", leftImage: "moon"),
-                                        Settings(titleLabel: "Очистить данные", leftImage: "trash"),]
+    private var settings: [Settings] = [Settings(titleLabel: "Language", leftImage: "character.book.closed"),
+                                        Settings(titleLabel: "Dark theme", leftImage: "moon"),
+                                        Settings(titleLabel: "Clear data", leftImage: "trash"),]
     
     private lazy var stackTableView: UITableView = {
         let tableView = UITableView()
@@ -99,7 +98,6 @@ extension SettingView: UITableViewDataSource, UITableViewDelegate {
         let isDarkMode = UserDefaults.standard.bool(forKey: "Theme")
         cell.setup(settings: settings[indexPath.row], isDarkMode: isDarkMode)
         cell.delegate = self
-        cell.delegates = self
         if indexPath.row == 0 {
             cell.languageButton.isHidden = false
             cell.buttonSwitch.isHidden = true
@@ -129,6 +127,17 @@ extension SettingView: UITableViewDataSource, UITableViewDelegate {
             alert.addAction(acceptAction)
             
             present(alert, animated: true)
+        } else if indexPath.row == 0 {
+            let languageView = LanguageView()
+            let multipler = 0.28
+            let customDetent = UISheetPresentationController.Detent.custom { context in
+                languageView.view.frame.height * multipler
+            }
+            if let sheet = languageView.sheetPresentationController {
+                sheet.detents = [customDetent, .medium()]
+                sheet.prefersGrabberVisible = true
+            }
+            self.present(languageView, animated: true)
         }
     }
     
@@ -156,11 +165,3 @@ extension SettingView: ThemeSwitchDelegate {
     }
 }
 
-extension SettingView: CustomTableViewCellDelegate {
-    func languageButtonTapped(inCell cell: CustomTableViewCell) {
-        
-        let vc = LanguageView()
-        present(vc, animated: true)
-    }
-    
-}

@@ -8,17 +8,11 @@
 import UIKit
 
 protocol NewNoteViewProtocol {
-    
     func successAddNote()
-    
     func failureAddNote()
-    
     func succesDelete()
-    
     func failureDelete()
-    
     func successUpdateNote()
-    
 }
 
 class NewNotesView: UIViewController, UITextViewDelegate {
@@ -59,7 +53,7 @@ class NewNotesView: UIViewController, UITextViewDelegate {
     
     private lazy var saveButton: UIButton = {
         let view = UIButton(type: .system)
-        view.setTitle("Сохранить", for: .normal)
+        view.setTitle("Save", for: .normal)
         view.layer.cornerRadius = 20
         view.tintColor = .white
         view.backgroundColor = .systemGray
