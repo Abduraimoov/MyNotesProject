@@ -14,9 +14,7 @@ protocol settingModelProtocol {
 class SettingModel {
     
     weak var controller: SettingControllerProtocol?
-    
     private let coreDataservice = CoreDataService.shared
-    
     init(controller: SettingControllerProtocol) {
         self.controller = controller
     }
@@ -33,5 +31,4 @@ extension SettingModel: settingModelProtocol {
             }
         }
     }
-    
 }

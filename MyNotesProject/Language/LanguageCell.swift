@@ -21,6 +21,7 @@ class LanguageCell: UITableViewCell {
         let view = UIImageView()
         view.layer.cornerRadius = 32 / 2
         view.clipsToBounds = true
+        view.backgroundColor = .white
         return view
     }()
     
@@ -57,4 +58,5 @@ class LanguageCell: UITableViewCell {
             make.center.equalToSuperview()
         }
     }
+    
 }

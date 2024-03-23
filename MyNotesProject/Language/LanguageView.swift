@@ -16,8 +16,6 @@ class LanguageView: UIViewController {
     
     weak var delegate: LanguageViewDelegate?
     
- //   private let appLanguageManager: App
-    
     private var languages: [Language] = [Language(image: "Kyzgyzstan", title: "Кыргызча"),
                                          Language(image: "Russian", title: "Русский"),
                                          Language(image: "America", title: "English")]
@@ -34,6 +32,7 @@ class LanguageView: UIViewController {
         let view = UITableView()
         view.layer.cornerRadius = 15
         view.isScrollEnabled = false
+        view.backgroundColor = .systemBackground
         view.translatesAutoresizingMaskIntoConstraints = false
         view.register(LanguageCell.self, forCellReuseIdentifier: LanguageCell.reuseID)
         view.delegate = self
@@ -44,6 +43,11 @@ class LanguageView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        if UserDefaults.standard.bool(forKey: "Theme") == false {
+            view.overrideUserInterfaceStyle = .light
+        } else {
+            view.overrideUserInterfaceStyle = .dark
+        }
         setupConstrains()
     }
     
@@ -57,7 +61,6 @@ class LanguageView: UIViewController {
             LanguageTable.topAnchor.constraint(equalTo: languageLabel.bottomAnchor, constant: 25),
             LanguageTable.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12),
             LanguageTable.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12),
-          //  LanguageTable.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             LanguageTable.heightAnchor.constraint(equalToConstant: 150)
         ])
       
@@ -75,7 +78,6 @@ extension LanguageView: UITableViewDataSource {
         cell.configure(language: languages[indexPath.row])
         return cell
     }
-    
     
 }
 
@@ -101,5 +103,3 @@ extension LanguageView: UITableViewDelegate {
         dismiss(animated: true)
     }
 }
-
-

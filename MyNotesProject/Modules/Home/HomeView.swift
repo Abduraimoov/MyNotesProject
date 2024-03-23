@@ -87,7 +87,6 @@ class HomeView: UIViewController {
     private func setupNavigationItem() {
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(itemButtonTapped))
         navigationItem.rightBarButtonItem = rightBarButtonItem
-        
     }
     
     private func updateInterfaceForTheme(isDark: Bool? = nil) {
@@ -116,7 +115,6 @@ class HomeView: UIViewController {
             
             titleLabel.topAnchor.constraint(equalTo: noteSearchBar.bottomAnchor, constant: 22),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 39)
-            
         ])
     }
     
@@ -176,8 +174,6 @@ extension HomeView: UICollectionViewDataSource  {
     }
 }
 
-
-
 extension HomeView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (collectionView.frame.width - 12) / 2 , height: 100)
@@ -188,7 +184,6 @@ extension HomeView: UICollectionViewDelegateFlowLayout {
         noteView.note = notes[indexPath.row]
         navigationController?.pushViewController(noteView, animated: true)
     }
-    
 }
 
 extension HomeView: HomeViewProtocol {
@@ -196,5 +191,4 @@ extension HomeView: HomeViewProtocol {
         self.notes = notes
         notesCollectionView.reloadData()
     }
-    
 }

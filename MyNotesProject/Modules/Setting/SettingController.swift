@@ -9,9 +9,7 @@ import UIKit
 
 protocol SettingControllerProtocol: AnyObject {
     func onDeleteNotes()
-    
     func onSuccesDelete()
-    
     func onFailureDelete()
 }
 
@@ -38,7 +36,5 @@ extension SettingController: SettingControllerProtocol {
     
     func onDeleteNotes() {
         model?.deleteNotes()
-        
-    }
-    
+    }    
 }

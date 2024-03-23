@@ -10,7 +10,6 @@ import SnapKit
 
 protocol settingViewProtocol {
     func succesDelete()
-    
     func failureDelete()
 }
 
@@ -29,7 +28,6 @@ class SettingView: UIViewController {
         tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
-//        tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.SetupID)
         return tableView
     }()
@@ -54,8 +52,6 @@ class SettingView: UIViewController {
     
     private func setupNavigationItem() {
         navigationItem.title = "Settings".localized()
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(settingsButtonTapped))
-        navigationItem.rightBarButtonItem = rightBarButtonItem
     }
     
     private func updateLanguage() {
@@ -76,18 +72,13 @@ class SettingView: UIViewController {
     }
     
     private func updateInterfaceForTheme(isDark: Bool? = nil) {
-        
         if let isDark = isDark {
             UserDefaults.standard.set(isDark, forKey: "Theme")
         }
         let isDarkMode = UserDefaults.standard.bool(forKey: "Theme")
-        
         view.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
-        
         navigationController?.navigationBar.tintColor = isDarkMode ? .white : .black
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: isDarkMode ? UIColor.white : UIColor.black]
-        navigationItem.rightBarButtonItem?.tintColor = isDarkMode ? .white : .black
-        
         stackTableView.reloadData()
     }
     
@@ -117,7 +108,6 @@ extension SettingView: UITableViewDataSource, UITableViewDelegate {
             cell.languageButton.isHidden = true
             cell.buttonSwitch.isHidden = true
         }
-        
         return cell
     }
     
@@ -128,7 +118,7 @@ extension SettingView: UITableViewDataSource, UITableViewDelegate {
             let acceptAction = UIAlertAction(title: "Да", style: .destructive) { action in
                 self.controller?.onDeleteNotes()
             }
-            
+    
             let actionDecline = UIAlertAction(title: "Нет", style: .cancel)
             
             alert.addAction(actionDecline)
@@ -163,7 +153,6 @@ extension SettingView: settingViewProtocol {
         alert.addAction(acceptAction)
         present(alert, animated: true)
     }
-    
 }
 
 extension SettingView: ThemeSwitchDelegate {

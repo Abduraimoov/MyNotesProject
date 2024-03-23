@@ -51,7 +51,6 @@ class CustomTableViewCell: UITableViewCell {
         setupView()
         setupSwitch()
         contentView.backgroundColor = .secondarySystemBackground
-        
     }
     
     required init?(coder: NSCoder) {

@@ -75,7 +75,6 @@ class OnBoardingView: UIViewController  {
         onBoardingCollectionView.isPagingEnabled = true
     }
     
-    
     private func setupConstrains() {
         view.addSubview(onBoardingCollectionView)
         view.addSubview(uiPageControl)
