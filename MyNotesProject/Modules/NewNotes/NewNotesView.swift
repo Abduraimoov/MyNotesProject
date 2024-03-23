@@ -27,6 +27,7 @@ class NewNotesView: UIViewController, UITextViewDelegate {
         let view = UISearchBar()
         view.placeholder = "Search"
         view.layer.cornerRadius = 14
+        view.backgroundImage = UIImage()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.searchTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return view

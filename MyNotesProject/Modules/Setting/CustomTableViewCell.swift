@@ -33,7 +33,7 @@ class CustomTableViewCell: UITableViewCell {
     var languageButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-        button.setTitle("Russian", for: .normal)
+        button.setTitle("Languages".localized(), for: .normal)
         button.setTitleColor(.secondaryLabel, for: .normal)
         button.semanticContentAttribute = .forceRightToLeft
         button.tintColor = .label
@@ -51,6 +51,7 @@ class CustomTableViewCell: UITableViewCell {
         setupView()
         setupSwitch()
         contentView.backgroundColor = .secondarySystemBackground
+        
     }
     
     required init?(coder: NSCoder) {

@@ -18,9 +18,9 @@ class SettingView: UIViewController {
     
     var controller: SettingControllerProtocol?
     
-    private var settings: [Settings] = [Settings(titleLabel: "Language", leftImage: "character.book.closed"),
-                                        Settings(titleLabel: "Dark theme", leftImage: "moon"),
-                                        Settings(titleLabel: "Clear data", leftImage: "trash"),]
+    private var settings: [Settings] = [Settings(titleLabel: "Language".localized(), leftImage: "character.book.closed"),
+                                        Settings(titleLabel: "Dark theme".localized(), leftImage: "moon"),
+                                        Settings(titleLabel: "Clear data".localized(), leftImage: "trash"),]
     
     private lazy var stackTableView: UITableView = {
         let tableView = UITableView()
@@ -29,6 +29,7 @@ class SettingView: UIViewController {
         tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
+//        tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.SetupID)
         return tableView
     }()
@@ -38,7 +39,6 @@ class SettingView: UIViewController {
         controller = SettingController(view: self)
         view.backgroundColor = .systemBackground
         setupUIView()
-        setupNavigationItem()
         updateInterfaceForTheme()
     }
     
@@ -49,12 +49,21 @@ class SettingView: UIViewController {
         } else {
             view.overrideUserInterfaceStyle = .dark
         }
+        updateLanguage()
     }
     
     private func setupNavigationItem() {
-        navigationItem.title = "Settings"
+        navigationItem.title = "Settings".localized()
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(settingsButtonTapped))
         navigationItem.rightBarButtonItem = rightBarButtonItem
+    }
+    
+    private func updateLanguage() {
+        settings = [Settings(titleLabel: "Language".localized(), leftImage: "character.book.closed"),
+                                            Settings(titleLabel: "Dark theme".localized(), leftImage: "moon"),
+                                            Settings(titleLabel: "Clear data".localized(), leftImage: "trash"),]
+        stackTableView.reloadData()
+        setupNavigationItem()
     }
     
     private func setupUIView() {
@@ -74,7 +83,6 @@ class SettingView: UIViewController {
         let isDarkMode = UserDefaults.standard.bool(forKey: "Theme")
         
         view.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
-        stackTableView.backgroundColor = isDarkMode ? .black : .secondarySystemBackground
         
         navigationController?.navigationBar.tintColor = isDarkMode ? .white : .black
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: isDarkMode ? UIColor.white : UIColor.black]
@@ -129,6 +137,7 @@ extension SettingView: UITableViewDataSource, UITableViewDelegate {
             present(alert, animated: true)
         } else if indexPath.row == 0 {
             let languageView = LanguageView()
+            languageView.delegate = self
             let multipler = 0.28
             let customDetent = UISheetPresentationController.Detent.custom { context in
                 languageView.view.frame.height * multipler
@@ -165,3 +174,8 @@ extension SettingView: ThemeSwitchDelegate {
     }
 }
 
+extension SettingView: LanguageViewDelegate {
+    func didLanguageSelect(LanguageType: languageType) {
+        updateLanguage()
+    }
+}

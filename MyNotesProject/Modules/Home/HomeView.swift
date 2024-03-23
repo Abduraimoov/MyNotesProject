@@ -21,6 +21,7 @@ class HomeView: UIViewController {
     private lazy var noteSearchBar: UISearchBar = {
         let view = UISearchBar()
         view.placeholder = "Search"
+        view.backgroundImage = UIImage()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.searchTextField.addTarget(self, action: #selector(noteSearchBarEditingChanged), for: .editingChanged)
         return view
@@ -78,10 +79,12 @@ class HomeView: UIViewController {
             view.overrideUserInterfaceStyle = .dark
         }
         controller?.onGetNotes()
+        navigationItem.title = "Home".localized()
+        noteSearchBar.placeholder = "Search".localized()
+        titleLabel.text = "Notes"
     }
     
     private func setupNavigationItem() {
-        navigationItem.title = "Home"
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(itemButtonTapped))
         navigationItem.rightBarButtonItem = rightBarButtonItem
         

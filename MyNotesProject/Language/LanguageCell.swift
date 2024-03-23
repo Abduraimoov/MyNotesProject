@@ -33,6 +33,7 @@ class LanguageCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupContrains()
+        contentView.backgroundColor = .secondarySystemBackground
     }
     
     required init?(coder: NSCoder) {
@@ -45,13 +46,13 @@ class LanguageCell: UITableViewCell {
     }
     
     private func setupContrains() {
-        addSubview(IconImage)
+        contentView.addSubview(IconImage)
         IconImage.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.left.equalToSuperview().offset(16)
             make.width.height.equalTo(32)
         }
-        addSubview(titleLabel)
+        contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }

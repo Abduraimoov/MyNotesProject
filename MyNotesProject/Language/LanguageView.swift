@@ -8,10 +8,18 @@
 import UIKit
 import SnapKit
 
+protocol LanguageViewDelegate: AnyObject {
+    func didLanguageSelect(LanguageType: languageType)
+}
+
 class LanguageView: UIViewController {
     
+    weak var delegate: LanguageViewDelegate?
+    
+ //   private let appLanguageManager: App
+    
     private var languages: [Language] = [Language(image: "Kyzgyzstan", title: "Кыргызча"),
-                                         Language(image: "Russian", title: "Руский"),
+                                         Language(image: "Russian", title: "Русский"),
                                          Language(image: "America", title: "English")]
     
     private lazy var languageLabel: UILabel = {
@@ -24,6 +32,7 @@ class LanguageView: UIViewController {
     
     private lazy var LanguageTable: UITableView = {
         let view = UITableView()
+        view.layer.cornerRadius = 15
         view.isScrollEnabled = false
         view.translatesAutoresizingMaskIntoConstraints = false
         view.register(LanguageCell.self, forCellReuseIdentifier: LanguageCell.reuseID)
@@ -46,16 +55,14 @@ class LanguageView: UIViewController {
             languageLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 4),
             
             LanguageTable.topAnchor.constraint(equalTo: languageLabel.bottomAnchor, constant: 25),
-            LanguageTable.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
-            LanguageTable.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
+            LanguageTable.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12),
+            LanguageTable.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12),
+          //  LanguageTable.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             LanguageTable.heightAnchor.constraint(equalToConstant: 150)
         ])
       
     }
     
-
-   
-
 }
 
 extension LanguageView: UITableViewDataSource {
@@ -75,6 +82,23 @@ extension LanguageView: UITableViewDataSource {
 extension LanguageView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            AppLanguageManager.shared.setApplanguage(language: .kg)
+            delegate?.didLanguageSelect(LanguageType: .kg)
+        case 1:
+            AppLanguageManager.shared.setApplanguage(language: .ru)
+            delegate?.didLanguageSelect(LanguageType: .ru)
+        case 2:
+            AppLanguageManager.shared.setApplanguage(language: .en)
+            delegate?.didLanguageSelect(LanguageType: .en)
+        default:
+            ()
+        }
+        dismiss(animated: true)
     }
 }
 
