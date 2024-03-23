@@ -62,6 +62,14 @@ class NewNotesView: UIViewController, UITextViewDelegate {
         return view
     }()
     
+    private lazy var dataLabel: UILabel = {
+        let view = UILabel()
+        view.textColor = .label
+        view.font = .systemFont(ofSize: 12, weight: .light)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         controller = NewNoteController(view: self)
@@ -74,6 +82,7 @@ class NewNotesView: UIViewController, UITextViewDelegate {
         }
         noteSearchBar.text = note.title
         myTextView.text = note.deck
+        dataLabel.text = note.date
     }
     
     private func setupUI() {
@@ -118,6 +127,7 @@ class NewNotesView: UIViewController, UITextViewDelegate {
         view.addSubview(myTextView)
         view.addSubview(copyButton)
         view.addSubview(saveButton)
+        view.addSubview(dataLabel)
         NSLayoutConstraint.activate([
             noteSearchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
             noteSearchBar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12),
@@ -137,7 +147,10 @@ class NewNotesView: UIViewController, UITextViewDelegate {
             saveButton.topAnchor.constraint(equalTo: myTextView.bottomAnchor, constant: 105),
             saveButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 27),
             saveButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -27),
-            saveButton.heightAnchor.constraint(equalToConstant: 40)
+            saveButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            dataLabel.topAnchor.constraint(equalTo: myTextView.bottomAnchor, constant: 8),
+            dataLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20)
         ])
         saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
         
