@@ -23,7 +23,7 @@ class NewNotesView: UIViewController, UITextViewDelegate {
     
     var note: Note?
     
-    private lazy var noteSearchBar: UISearchBar = {
+    private lazy var noteSearch: UISearchBar = {
         let view = UISearchBar()
         view.placeholder = "Search"
         view.layer.cornerRadius = 14
@@ -75,12 +75,12 @@ class NewNotesView: UIViewController, UITextViewDelegate {
         controller = NewNoteController(view: self)
         setupUI()
         myTextView.delegate = self
-        noteSearchBar.searchTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        noteSearch.searchTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         
         guard let note = note else {
             return
         }
-        noteSearchBar.text = note.title
+        noteSearch.text = note.title
         myTextView.text = note.deck
         dataLabel.text = note.date
     }
@@ -101,10 +101,12 @@ class NewNotesView: UIViewController, UITextViewDelegate {
         } else {
             view.overrideUserInterfaceStyle = .dark
         }
+        navigationItem.title = "Notes".localized()
+        noteSearch.placeholder = "Search".localized()
+        saveButton.setTitle("Save".localized(), for: .normal)
     }
     
     private func setupNavigationItem() {
-        navigationItem.title = "Notes"
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(TrashButtonTapped))
         navigationItem.rightBarButtonItem = rightBarButtonItem
         
@@ -123,18 +125,18 @@ class NewNotesView: UIViewController, UITextViewDelegate {
     //MARK: - Констреинты
     
     private func setupContrains() {
-        view.addSubview(noteSearchBar)
+        view.addSubview(noteSearch)
         view.addSubview(myTextView)
         view.addSubview(copyButton)
         view.addSubview(saveButton)
         view.addSubview(dataLabel)
         NSLayoutConstraint.activate([
-            noteSearchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
-            noteSearchBar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12),
-            noteSearchBar.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12),
-            noteSearchBar.heightAnchor.constraint(equalToConstant: 40),
+            noteSearch.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
+            noteSearch.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12),
+            noteSearch.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12),
+            noteSearch.heightAnchor.constraint(equalToConstant: 40),
             
-            myTextView.topAnchor.constraint(equalTo: noteSearchBar.bottomAnchor, constant: 26),
+            myTextView.topAnchor.constraint(equalTo: noteSearch.bottomAnchor, constant: 26),
             myTextView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             myTextView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
             myTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -207),
@@ -163,12 +165,12 @@ class NewNotesView: UIViewController, UITextViewDelegate {
             return
         }
         
-        let alert = UIAlertController(title: "Удаление", message: "Вы действительно хотите удалить заметку", preferredStyle: .alert)
-        let acceptAction = UIAlertAction(title: "Да", style: .destructive) { action in
+        let alert = UIAlertController(title: "Removal".localized(), message: "Do you really want to delete the entire note?".localized(), preferredStyle: .alert)
+        let acceptAction = UIAlertAction(title: "Yes".localized(), style: .destructive) { action in
             self.controller?.onDeleteNote(id: note.id ?? "")
         }
         
-        let actionDecline = UIAlertAction(title: "Нет", style: .cancel)
+        let actionDecline = UIAlertAction(title: "No".localized(), style: .cancel)
         
         alert.addAction(actionDecline)
         alert.addAction(acceptAction)
@@ -192,7 +194,7 @@ class NewNotesView: UIViewController, UITextViewDelegate {
     }
     
     private func updateSaveButtonState() {
-        let isNotEmpty = !(noteSearchBar.searchTextField.text?.isEmpty ?? true) || !(myTextView.text.isEmpty)
+        let isNotEmpty = !(noteSearch.searchTextField.text?.isEmpty ?? true) || !(myTextView.text.isEmpty)
         saveButton.isEnabled = isNotEmpty
         saveButton.backgroundColor = isNotEmpty ? .systemRed : .systemGray
     }
@@ -202,8 +204,8 @@ class NewNotesView: UIViewController, UITextViewDelegate {
     }
     
     @objc  func saveButtonPressed() {     
-        if !(noteSearchBar.searchTextField.text?.isEmpty ?? true) || !(myTextView.text.isEmpty) {
-            controller?.onAddNote(note: note, title: noteSearchBar.text ?? "", description: myTextView.text)
+        if !(noteSearch.searchTextField.text?.isEmpty ?? true) || !(myTextView.text.isEmpty) {
+            controller?.onAddNote(note: note, title: noteSearch.text ?? "", description: myTextView.text)
             successUpdateNote()
         }
     }

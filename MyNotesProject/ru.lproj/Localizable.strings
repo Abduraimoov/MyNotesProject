@@ -14,3 +14,12 @@
 "Home" = "Главная страница";
 "Search" = "Искать";
 "Notes" = "Заметки";
+"Save" = "Сохранять";
+"Removal" = "Удаление";
+"Do you really want to delete the entire note?" = "Вы действительно хотите удалить всю заметку?";
+"Yes" = "Да";
+"No" = "Нет";
+"Choose language" = "Выберите язык";
+"English" = "Английский";
+"Russian" = "Русский";
+"Kyrgyz" = "Киргизский";

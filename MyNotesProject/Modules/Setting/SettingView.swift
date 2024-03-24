@@ -114,12 +114,12 @@ extension SettingView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 {
             
-            let alert = UIAlertController(title: "Удаление", message: "Вы действительно хотите удалить все заметку", preferredStyle: .alert)
-            let acceptAction = UIAlertAction(title: "Да", style: .destructive) { action in
+            let alert = UIAlertController(title: "Removal".localized(), message: "Do you really want to delete the entire note?".localized(), preferredStyle: .alert)
+            let acceptAction = UIAlertAction(title: "Yes".localized(), style: .destructive) { action in
                 self.controller?.onDeleteNotes()
             }
     
-            let actionDecline = UIAlertAction(title: "Нет", style: .cancel)
+            let actionDecline = UIAlertAction(title: "No".localized(), style: .cancel)
             
             alert.addAction(actionDecline)
             alert.addAction(acceptAction)

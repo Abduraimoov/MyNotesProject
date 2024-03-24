@@ -14,3 +14,12 @@
 "Home" = "Башкы";
 "Search" = "Издөө";
 "Notes" = "белгилер";
+"Save" = "Сактоо";
+"Removal" = "Жок кылуу";
+"Do you really want to delete the entire note?" = "Сиз чын эле каттарды толугу менен жок кылгыңыз келеби?";
+"Yes" = "Ооба";
+"No" = "Жок";
+"Choose language" = "Тилдерди танданыз";
+"English" = "Англисче";
+"Russian" = "Орусча";
+"Kyrgyz" = "Кыргызча";

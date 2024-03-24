@@ -13,3 +13,12 @@
 "Home" = "Home";
 "Search" = "Search";
 "Notes" = "Notes";
+"Save" = "Save";
+"Removal" = "Removal";
+"Do you really want to delete the entire note?" = "Do you really want to delete the entire note?";
+"Yes" = "Yes";
+"No" = "No";
+"Choose language" = "Choose language";
+"English" = "English";
+"Russian" = "Russian";
+"Kyrgyz" = "Kyrgyz";

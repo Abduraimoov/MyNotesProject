@@ -81,7 +81,7 @@ class HomeView: UIViewController {
         controller?.onGetNotes()
         navigationItem.title = "Home".localized()
         noteSearchBar.placeholder = "Search".localized()
-        titleLabel.text = "Notes"
+        titleLabel.text = "Notes".localized()
     }
     
     private func setupNavigationItem() {
