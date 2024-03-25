@@ -17,9 +17,9 @@ class SettingView: UIViewController {
     
     var controller: SettingControllerProtocol?
     
-    private var settings: [Settings] = [Settings(titleLabel: "Language".localized(), leftImage: "character.book.closed"),
-                                        Settings(titleLabel: "Dark theme".localized(), leftImage: "moon"),
-                                        Settings(titleLabel: "Clear data".localized(), leftImage: "trash"),]
+    private var settings: [Settings] = [Settings(titleLabel: "Язык", leftImage: "Image", type: .wothbutton, decpription: "Русский"),
+                        Settings(titleLabel: "Темная тема", leftImage: "moon", type: .withSwitch, decpription: ""),
+                        Settings(titleLabel: "Очистить данные", leftImage: "trash", type: .none, decpription: "")]
     
     private lazy var stackTableView: UITableView = {
         let tableView = UITableView()
@@ -55,9 +55,9 @@ class SettingView: UIViewController {
     }
     
     private func updateLanguage() {
-        settings = [Settings(titleLabel: "Language".localized(), leftImage: "character.book.closed"),
-                                            Settings(titleLabel: "Dark theme".localized(), leftImage: "moon"),
-                                            Settings(titleLabel: "Clear data".localized(), leftImage: "trash"),]
+        settings = [Settings(titleLabel: "Language".localized(), leftImage: "Image", type: .wothbutton, decpription: "Russian".localized()),
+                    Settings(titleLabel: "Dark theme".localized(), leftImage: "moon", type: .withSwitch, decpription: ""),
+                    Settings(titleLabel: "Clear data".localized(), leftImage: "trash", type: .none, decpription: "")]
         stackTableView.reloadData()
         setupNavigationItem()
     }
@@ -82,9 +82,6 @@ class SettingView: UIViewController {
         stackTableView.reloadData()
     }
     
-    @objc func settingsButtonTapped() {
-        print("Работает")
-    }
 }
 
 extension SettingView: UITableViewDataSource, UITableViewDelegate {

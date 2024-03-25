@@ -169,7 +169,6 @@
 			children = (
 				85AEE7B32BAB2B56000DC0AA /* AppLanguageManager */,
 				85AEE7B02BAB2AE7000DC0AA /* Localizable.strings */,
-				85AEE79D2BA9B74E000DC0AA /* Language */,
 				85AEE7632BA06F3A000DC0AA /* Services */,
 				85A8EDE32B9B19D3005CE2D5 /* OnBoarding */,
 				85E2E3752B89CD9100E8212F /* Delegate */,
@@ -203,9 +202,10 @@
 		85E2E3782B89CDDB00E8212F /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				8564E7B82B9C74C900CF9CFC /* NewNotes */,
 				85E2E3792B89CDF700E8212F /* Home */,
+				8564E7B82B9C74C900CF9CFC /* NewNotes */,
 				85E2E3822B89D73D00E8212F /* Setting */,
+				85AEE79D2BA9B74E000DC0AA /* Language */,
 			);
 			path = Modules;
 			sourceTree = "<group>";

@@ -12,9 +12,17 @@ protocol ThemeSwitchDelegate: AnyObject {
     func themeSwitchDidToggle(isOn: Bool)
 }
 
+enum settingCellType {
+    case none
+    case withSwitch
+    case wothbutton
+}
+
 struct Settings {
     var titleLabel: String
     var leftImage: String
+    var type: settingCellType
+    var decpription: String
 }
 
 class CustomTableViewCell: UITableViewCell {
@@ -28,13 +36,16 @@ class CustomTableViewCell: UITableViewCell {
         return view
     }()
     
-    private lazy var titleLabel = UILabel()
+    private lazy var titleLabel: UILabel = {
+        let view = UILabel()
+        return view
+    }()
     
     var languageButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-        button.setTitle("Languages", for: .normal)
-        button.setTitleColor(.secondaryLabel, for: .normal)
+        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 15)
+        let image = UIImage(systemName: "chevron.right", withConfiguration: symbolConfiguration)
+        button.setImage(image, for: .normal)
         button.semanticContentAttribute = .forceRightToLeft
         button.tintColor = .label
         return button
@@ -80,12 +91,22 @@ class CustomTableViewCell: UITableViewCell {
     }
     
     func setup(settings: Settings, isDarkMode: Bool) {
-        titleLabel.text = settings.titleLabel
-        let iconImage = UIImage(systemName: settings.leftImage)?.withRenderingMode(.alwaysTemplate)
+        let iconImage = UIImage(named: settings.leftImage)?.withRenderingMode(.alwaysTemplate)
         leftImageView.image = iconImage
+        titleLabel.text = settings.titleLabel
         let contentColor = isDarkMode ? UIColor.white : UIColor.black
         leftImageView.tintColor = contentColor
         titleLabel.textColor = contentColor
+        switch settings.type {
+        case .none:
+            languageButton.isHidden = true
+            buttonSwitch.isHidden = true
+        case .withSwitch:
+            languageButton.isHidden = true
+        case .wothbutton:
+            buttonSwitch.isHidden = true
+            languageButton.setTitle(settings.decpription, for: .normal)
+        }
     }
     
     private func setupView() {
@@ -96,7 +117,7 @@ class CustomTableViewCell: UITableViewCell {
             make.height.width.equalTo(24)
         }
         
-        contentView.addSubview(titleLabel)
+        addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.centerY.equalTo(contentView)
             make.leading.equalTo(leftImageView.snp.trailing).offset(13)
