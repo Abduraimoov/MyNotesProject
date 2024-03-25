@@ -55,7 +55,7 @@ class SettingView: UIViewController {
     }
     
     private func updateLanguage() {
-        settings = [Settings(titleLabel: "Language".localized(), leftImage: "Image", type: .wothbutton, decpription: "Russian".localized()),
+        settings = [Settings(titleLabel: "Language".localized(), leftImage: "Image", type: .wothbutton, decpription: "Русский".localized()),
                     Settings(titleLabel: "Dark theme".localized(), leftImage: "moon", type: .withSwitch, decpription: ""),
                     Settings(titleLabel: "Clear data".localized(), leftImage: "trash", type: .none, decpription: "")]
         stackTableView.reloadData()
