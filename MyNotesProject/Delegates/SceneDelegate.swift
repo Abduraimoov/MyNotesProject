@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         var rootViewController: UIViewController?
         if UserDefaults.standard.bool(forKey: "One_Board_cell") == true {
-            rootViewController = HomeView()
+            rootViewController = HomeViewController()
         } else {
             rootViewController = OnBoardingView()
         }

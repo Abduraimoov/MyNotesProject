@@ -20,6 +20,7 @@ enum coreDataResponse {
 }
 
 class CoreDataService {
+    
     static let shared = CoreDataService()
     
     

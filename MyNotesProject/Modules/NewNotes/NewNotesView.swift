@@ -101,7 +101,11 @@ class NewNotesView: UIViewController, UITextViewDelegate {
         } else {
             view.overrideUserInterfaceStyle = .dark
         }
-        navigationItem.title = "Notes".localized()
+       setupLocalizable()
+    }
+    
+    private func setupLocalizable() {
+        navigationItem.title = "Note".localized()
         noteSearch.placeholder = "Search".localized()
         saveButton.setTitle("Save".localized(), for: .normal)
     }

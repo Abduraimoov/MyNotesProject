@@ -33,6 +33,7 @@ class AppLanguageManager {
     private func setCurrentlanguage(language: languageType) {
         currentLanguge = language
         //TODO: добавить сохранение userDefaults
+      //  UserDefaults.standard.set(currentLanguge, forKey: "language")
     }
     
     private func setCurrentBabdlePath(languageCode: String) {

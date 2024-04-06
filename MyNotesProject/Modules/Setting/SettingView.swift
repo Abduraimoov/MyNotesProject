@@ -50,8 +50,11 @@ class SettingView: UIViewController {
         updateLanguage()
     }
     
-    private func setupNavigationItem() {
+    private func setupLocalizable() {
         navigationItem.title = "Settings".localized()
+        let backButton = UIBarButtonItem()
+        backButton.title = "Back".localized()
+        navigationItem.backBarButtonItem = backButton
     }
     
     private func updateLanguage() {
@@ -59,7 +62,7 @@ class SettingView: UIViewController {
                     Settings(titleLabel: "Dark theme".localized(), leftImage: "moon", type: .withSwitch, decpription: ""),
                     Settings(titleLabel: "Clear data".localized(), leftImage: "trash", type: .none, decpription: "")]
         stackTableView.reloadData()
-        setupNavigationItem()
+        setupLocalizable()
     }
     
     private func setupUIView() {

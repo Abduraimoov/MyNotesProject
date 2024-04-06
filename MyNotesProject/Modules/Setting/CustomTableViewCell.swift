@@ -33,11 +33,13 @@ class CustomTableViewCell: UITableViewCell {
     
     private lazy var leftImageView: UIImageView = {
         let view = UIImageView()
+        view.tintColor = .label
         return view
     }()
     
     private lazy var titleLabel: UILabel = {
         let view = UILabel()
+        view.tintColor = .label
         return view
     }()
     
@@ -94,9 +96,9 @@ class CustomTableViewCell: UITableViewCell {
         let iconImage = UIImage(named: settings.leftImage)?.withRenderingMode(.alwaysTemplate)
         leftImageView.image = iconImage
         titleLabel.text = settings.titleLabel
-        let contentColor = isDarkMode ? UIColor.white : UIColor.black
-        leftImageView.tintColor = contentColor
-        titleLabel.textColor = contentColor
+       // let contentColor = isDarkMode ? UIColor.white : UIColor.black
+//        leftImageView.tintColor = contentColor
+//        titleLabel.textColor = contentColor
         switch settings.type {
         case .none:
             languageButton.isHidden = true

@@ -16,9 +16,9 @@ class LanguageView: UIViewController {
     
     weak var delegate: LanguageViewDelegate?
     
-    private var languages: [Language] = [Language(image: "Kyzgyzstan", title: "Kyrgyz".localized()),
-                                         Language(image: "Russian", title: "Russian".localized()),
-                                         Language(image: "America", title: "English".localized())]
+    private var languages: [Language] = [Language(image: "Kyzgyzstan", title: "Кыргызча"),
+                                         Language(image: "Russian", title: "Русский"),
+                                         Language(image: "America", title: "English")]
     
     private lazy var languageLabel: UILabel = {
         let view = UILabel()
@@ -49,6 +49,14 @@ class LanguageView: UIViewController {
             view.overrideUserInterfaceStyle = .dark
         }
         setupConstrains()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupLocalizable()
+    }
+    
+    private func setupLocalizable() {
         languageLabel.text = "Choose language".localized()
     }
     

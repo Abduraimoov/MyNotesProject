@@ -8,11 +8,10 @@
 import UIKit
 
 protocol HomeViewProtocol {
-    
     func succesNotes(notes: [Note])
 }
 
-class HomeView: UIViewController {
+class HomeViewController: UIViewController {
     
     private var controller: HomeControllerProtocol?
     
@@ -79,9 +78,16 @@ class HomeView: UIViewController {
             view.overrideUserInterfaceStyle = .dark
         }
         controller?.onGetNotes()
-        navigationItem.title = "Home".localized()
+        setupLocaliazble()
+    }
+    
+    private func setupLocaliazble() {
+        let backButton = UIBarButtonItem()
+        backButton.title = "".localized()
+        navigationItem.backBarButtonItem = backButton
         noteSearchBar.placeholder = "Search".localized()
         titleLabel.text = "Notes".localized()
+        navigationItem.title = "Home".localized()
     }
     
     private func setupNavigationItem() {
@@ -97,11 +103,6 @@ class HomeView: UIViewController {
         navigationController?.navigationBar.tintColor = isDarkMode ? .white : .black
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: isDarkMode ? UIColor.white : UIColor.black]
         navigationItem.rightBarButtonItem?.tintColor = isDarkMode ? .white : .black
-    }
-    
-    @objc func itemButtonTapped() {
-        let vc = SettingView()
-        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func setupUI() {
@@ -138,6 +139,11 @@ class HomeView: UIViewController {
         ])
     }
     
+    @objc func itemButtonTapped() {
+        let vc = SettingView()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @objc func NewNotesTapped() {
         let noteView = NewNotesView()
         navigationController?.pushViewController(noteView, animated: true)
@@ -149,7 +155,7 @@ class HomeView: UIViewController {
     
 }
 
-extension HomeView: UICollectionViewDataSource  {
+extension HomeViewController: UICollectionViewDataSource  {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return notes.count
@@ -174,7 +180,7 @@ extension HomeView: UICollectionViewDataSource  {
     }
 }
 
-extension HomeView: UICollectionViewDelegateFlowLayout {
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (collectionView.frame.width - 12) / 2 , height: 100)
     }
@@ -186,7 +192,7 @@ extension HomeView: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension HomeView: HomeViewProtocol {
+extension HomeViewController: HomeViewProtocol {
     func succesNotes(notes: [Note]) {
         self.notes = notes
         notesCollectionView.reloadData()

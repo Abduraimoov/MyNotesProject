@@ -138,12 +138,12 @@ class OnBoardingView: UIViewController  {
     }
     
     private func transitionToHomeView() {
-        let vc = HomeView()
+        let vc = HomeViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func skipbuttonTapped() {
-        let vc = HomeView()
+        let vc = HomeViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
     
