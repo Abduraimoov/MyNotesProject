@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct StructBoardings {
+struct structBoarding {
     var image: String
     var label: String
     var secondLabel: String

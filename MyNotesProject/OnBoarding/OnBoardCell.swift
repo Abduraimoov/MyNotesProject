@@ -58,7 +58,7 @@ class OnBoardCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with data: StructBoardings) {
+    func configure(with data: structBoarding) {
         myImage.image = UIImage(named: data.image)
         myLabel.text = data.label
         secondLabel.text = data.secondLabel

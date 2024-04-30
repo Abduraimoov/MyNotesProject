@@ -11,7 +11,7 @@ var currentPage = 0
 
 class OnBoardingView: UIViewController  {
     
-    var StructBoarding: [StructBoardings] = []
+    var StructBoarding: [structBoarding] = []
     
     private lazy var onBoardingCollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -91,13 +91,13 @@ class OnBoardingView: UIViewController  {
     
     private func setupParamets() {
         StructBoarding = [
-            StructBoardings(image: "Image1",
+            structBoarding(image: "Image1",
                             label: "Welcome to The Note",
                             secondLabel: "Welcome to The Note – your new companion for tasks, goals, health – all in one place. Let's get started!."),
-            StructBoardings(image: "image2",
+            structBoarding(image: "image2",
                             label: "Set Up Your Profile",
                             secondLabel: "Now that you're with us, let's get to know each other better. Fill out your profile, share your interests, and set your goals."),
-            StructBoardings(image: "image3",
+            structBoarding(image: "image3",
                             label: "Dive into The Note",
                             secondLabel: "You're fully equipped to dive into the world of The Note. Remember, we're here to assist you every step of the way. Ready to start? Let's go!")
         ]

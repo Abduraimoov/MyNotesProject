@@ -42,7 +42,7 @@ class HomeViewController: UIViewController {
         view.delegate = self
         view.dataSource = self
         view.register(NoteCell.self, forCellWithReuseIdentifier: NoteCell.reuseId)
-        view.translatesAutoresizingMaskIntoConstraints = false
+        view.translatesAutoresizingMaskIntoConstraints = false        
         return view
     }()
     
