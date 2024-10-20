@@ -5,20 +5,19 @@
   Created by Nurtilek on 3/20/24.
   
 */
-
 "Settings" = "Орнотуулар";
-"Language" =  "Тил";
+"Language" = "Тилдер";
 "Dark theme" = "Караңгы";
 "Clear data" = "Баарын тазалоо";
-"Languages" = "Кыргызча";
-"Home" = "Башкы";
+"Languages" = "Киргизский";
+"Home" = "Үй";
 "Search" = "Издөө";
-"Notes" = "Белгилер";
+"Notes" = "Сактоолор";
 "Save" = "Сактоо";
 "Removal" = "Жок кылуу";
-"Do you really want to delete the entire note?" = "Сиз чын эле каттарды толугу менен жок кылгыңыз келеби?";
-"Yes" = "Ооба";
+"Do you really want to delete the entire note?" = "Чын эле баарын жок кылгыныз келеби ?";
+"Yes" = "Оа";
 "No" = "Жок";
-"Choose language" = "Тилдерди танданыз";
-"Русский" = "Кыргызча";
-"Note" = "Жазуулар";
+"Choose language" = "Тилдерди Тандаңыз";
+"Русский" = "Орусча";
+"Note" = "Сактоо";
